@@ -1,47 +1,36 @@
-# Svelte + TS + Vite
+# 카카오 OAuth 로그인 테스트
 
-This template should help get you started developing with Svelte and TypeScript in Vite.
+카카오 OAuth 로그인 테스트 애플리케이션입니다.
 
-## Recommended IDE Setup
+## 설정 방법
 
-[VS Code](https://code.visualstudio.com/) + [Svelte](https://marketplace.visualstudio.com/items?itemName=svelte.svelte-vscode).
+### 1. 환경 변수 설정
 
-## Need an official Svelte framework?
+프로젝트 루트에 `.env` 파일을 생성하고 다음과 같은 내용을 추가합니다.
 
-Check out [SvelteKit](https://github.com/sveltejs/kit#readme), which is also powered by Vite. Deploy anywhere with its serverless-first approach and adapt to various platforms, with out of the box support for TypeScript, SCSS, and Less, and easily-added support for mdsvex, GraphQL, PostCSS, Tailwind CSS, and more.
-
-## Technical considerations
-
-**Why use this over SvelteKit?**
-
-- It brings its own routing solution which might not be preferable for some users.
-- It is first and foremost a framework that just happens to use Vite under the hood, not a Vite app.
-
-This template contains as little as possible to get started with Vite + TypeScript + Svelte, while taking into account the developer experience with regards to HMR and intellisense. It demonstrates capabilities on par with the other `create-vite` templates and is a good starting point for beginners dipping their toes into a Vite + Svelte project.
-
-Should you later need the extended capabilities and extensibility provided by SvelteKit, the template has been structured similarly to SvelteKit so that it is easy to migrate.
-
-**Why `global.d.ts` instead of `compilerOptions.types` inside `jsconfig.json` or `tsconfig.json`?**
-
-Setting `compilerOptions.types` shuts out all other types not explicitly listed in the configuration. Using triple-slash references keeps the default TypeScript setting of accepting type information from the entire workspace, while also adding `svelte` and `vite/client` type information.
-
-**Why include `.vscode/extensions.json`?**
-
-Other templates indirectly recommend extensions via the README, but this file allows VS Code to prompt the user to install the recommended extension upon opening the project.
-
-**Why enable `allowJs` in the TS template?**
-
-While `allowJs: false` would indeed prevent the use of `.js` files in the project, it does not prevent the use of JavaScript syntax in `.svelte` files. In addition, it would force `checkJs: false`, bringing the worst of both worlds: not being able to guarantee the entire codebase is TypeScript, and also having worse typechecking for the existing JavaScript. In addition, there are valid use cases in which a mixed codebase may be relevant.
-
-**Why is HMR not preserving my local component state?**
-
-HMR state preservation comes with a number of gotchas! It has been disabled by default in both `svelte-hmr` and `@sveltejs/vite-plugin-svelte` due to its often surprising behavior. You can read the details [here](https://github.com/rixo/svelte-hmr#svelte-hmr).
-
-If you have state that's important to retain within a component, consider creating an external store which would not be replaced by HMR.
-
-```ts
-// store.ts
-// An extremely simple external store
-import { writable } from 'svelte/store'
-export default writable(0)
+```env
+VITE_KAKAO_CLIENT_ID=your_kakao_client_id_here
+VITE_KAKAO_REDIRECT_URI=http://localhost:5173/oauth
 ```
+
+### 2. 카카오 개발자 설정
+
+1. [카카오 개발자 콘솔](https://developers.kakao.com/)에 로그인
+2. 애플리케이션 생성
+3. 플랫폼 > Web 플랫폼 등록
+4. 카카오 로그인 > Redirect URI 등록: `http://localhost:5173/oauth`
+5. 앱 키 > REST API 키를 복사하여 `.env` 파일의 `VITE_KAKAO_CLIENT_ID`에 설정
+
+### 3. 개발 서버 실행
+
+```bash
+pnpm install
+pnpm run dev
+```
+
+## 기능
+
+- 카카오 OAuth 로그인
+- OAuth 콜백 처리
+- API 직접 호출 테스트
+- 환경 변수 상태 확인
